@@ -1,10 +1,13 @@
 import type { Metadata } from "next";
 import { Roboto_Mono } from "next/font/google";
 import "./globals.css";
+import Header from "./components/Header";
+import LayoutWrapper from "@/LayoutWrapper";
+import Footer from "./components/Footer";
 
 const roboto_mono = Roboto_Mono({
   subsets: ["latin"],
-  display: "swap",  
+  display: "swap",
 });
 
 // const geistMono = Geist_Mono({
@@ -24,10 +27,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={roboto_mono.className}
-      >
-        {children}
+      <body className={roboto_mono.className}>
+        <LayoutWrapper>
+          <Header/>
+          {children}
+          <Footer/>
+        </LayoutWrapper>
       </body>
     </html>
   );
