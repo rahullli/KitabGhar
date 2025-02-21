@@ -28,11 +28,11 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={roboto_mono.className}>
-        <LayoutWrapper>
+        {/* <LayoutWrapper> */}
           <Header/>
           {children}
           <Footer/>
-        </LayoutWrapper>
+        {/* </LayoutWrapper> */}
       </body>
     </html>
   );
