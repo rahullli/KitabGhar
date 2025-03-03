@@ -1,9 +1,10 @@
 {
     "compilerOptions": {
       "target": "ES6",
-      "module": "ESNext",
+      "module": "commonjs",
+      "outDir": "./dist",
+      "rootDir": "./",
       "strict": true,
-      "jsx": "react-native",
       "esModuleInterop": true,
     }
   }
