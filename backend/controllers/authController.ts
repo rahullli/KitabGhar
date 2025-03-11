@@ -117,13 +117,14 @@ export const login = async (req: Request, res: Response): Promise<void> => {
     }
 }
 
-export const forgotPassword = async(req:Request, res: Response) =>{
+export const forgotPassword = async(req:Request, res: Response): Promise<void> => {
 
     try{
         const {email} = req.body;
         const user = await User.findOne({email: email});
         if(!user){
-            return response(res,400, "No Account found with this email address");
+            response(res,400, "No Account found with this email address");
+            return;
         }
 
         const resetPasswordToken = crypto.randomBytes(20).toString('hex');
@@ -131,9 +132,35 @@ export const forgotPassword = async(req:Request, res: Response) =>{
         user.resetPasswordExpires = new Date(Date.now() + 3600000);
 
         await sendPasswordResetEmail(user.email, resetPasswordToken);
-        return response(res,200,"A Password reset link has been sent to your email address");
+        response(res,200,"A Password reset link has been sent to your email address");
+        return;
     }
     catch(err){
-
+        console.error(err);
+        response(res, 500, "Internal server error, please try again");
     }
 }
+
+export const resetPassword = async(req:Request, res:Response): Promise<void> =>{
+    try{
+        const token = req.params;
+        const {newPassword} = req.body;
+        const user = await User.findOne({resetPasswordToken: token, resetPasswordExpires: {$gt: Date.now()}})
+        if(!user){
+            response(res,400, "Invalid or expired verification token.");
+            return;
+        }
+        user.password = newPassword;
+        user.resetPasswordToken = undefined;
+        user.resetPasswordExpires = undefined;
+
+        await user.save();
+        response(res,200,"Your Password reset successfully, you can now login with your new password");
+        return;
+    }
+    catch(e){
+        console.log(e);
+        response(res, 500, "Internal server error, please try again");
+        return;
+    }
+}   
