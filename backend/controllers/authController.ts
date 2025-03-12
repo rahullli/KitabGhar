@@ -164,3 +164,17 @@ export const resetPassword = async(req:Request, res:Response): Promise<void> =>{
         return;
     }
 }   
+
+export const logout = async(req:Request, res:Response)=>{
+
+    try{
+        res.clearCookie("access_token", {
+            httpOnly: true
+        })
+        response(res,200, "Successfully loged out.");
+    }
+    catch(e){
+        console.log(e);
+        response(res,500, "Internal Server Error, Please Try Again");
+    }
+}
