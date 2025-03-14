@@ -178,3 +178,16 @@ export const logout = async(req:Request, res:Response)=>{
         response(res,500, "Internal Server Error, Please Try Again");
     }
 }
+
+export const checkUserAuth = async(req:Request, res:Response) =>{
+    try{
+        const userId = req?.id;
+        if(!userId){
+            response(res,400, "Unauthenticated please login to access our data");
+        }
+        const user = await User.findById(userId).select('-password -verificationToken -resetPasswordToken -resetPasswordExpires');
+    }
+    catch(){
+
+    }
+}
