@@ -187,7 +187,8 @@ export const checkUserAuth = async(req:Request, res:Response) =>{
         }
         const user = await User.findById(userId).select('-password -verificationToken -resetPasswordToken -resetPasswordExpires');
     }
-    catch(){
-
+    catch(e){
+        console.log(e);
+        response(res,500, "Internal Server Error, Please Try Again");
     }
 }
