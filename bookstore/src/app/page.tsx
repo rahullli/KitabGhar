@@ -1,7 +1,9 @@
 "use client";
 
-import { BookOpen, Camera, CreditCard, Library, Search, Store, Tag, Truck, Wallet } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { BookOpen, Camera, CreditCard, Library, Search, ShoppingBag, Store, Tag, Truck, Wallet } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -105,6 +107,29 @@ export default function Home() {
                 </div>
               ))
             }
+
+            <div className="relative container mx-auto px-4 h-full flex flex-col items-center justify-center text-white text-center">
+              <h1 className="text-4xl md:text-6xl font-bold mb-8">Buy and Sell Old Books Online in India.</h1>
+              <div className="flex flex-col sm:flex-row gap-6">
+                <Button size="lg" className="group bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 rounded-xl ">
+                  <div className="flex items-center gap-3">
+                      <div className="bg-white/10 p-2 rounded-lg group-hover:bg-white/30 transition-colors">
+                        <ShoppingBag className="h-6 w-6" />
+                      </div>
+                      <Link href="/books">
+                          <div className="text-left">
+                            <div className="text-sm opacity-90">
+                                Start Shopping
+                            </div>
+                            <div className="font-semibold">
+                                Buy Used Books
+                            </div>
+                          </div>
+                      </Link>
+                  </div>
+                </Button>
+              </div>
+            </div>
         </section>
     </main>
   )
