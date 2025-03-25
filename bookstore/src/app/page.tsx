@@ -1,19 +1,30 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { BookOpen, Camera, CreditCard, Library, Search, ShoppingBag, Store, Tag, Truck, Wallet } from "lucide-react";
+import {
+  BookOpen,
+  Camera,
+  CreditCard,
+  Library,
+  Search,
+  ShoppingBag,
+  Store,
+  Tag,
+  Truck,
+  Wallet,
+} from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import Books from "./components/Books";
 
 export default function Home() {
-
   const bannerImages = [
     "/images/book1.jpg",
     "/images/book2.jpg",
     "/images/book3.jpg",
   ];
-  
+
   const blogPosts = [
     {
       imageSrc:
@@ -52,7 +63,8 @@ export default function Home() {
     {
       step: "Step 2",
       title: "Set the selling price for your books",
-      description: "Set the price for your books at which you want to sell them.",
+      description:
+        "Set the price for your books at which you want to sell them.",
       icon: <Tag className="h-8 w-8 text-primary" />,
     },
     {
@@ -63,12 +75,13 @@ export default function Home() {
       icon: <Wallet className="h-8 w-8 text-primary" />,
     },
   ];
-  
+
   const buySteps = [
     {
       step: "Step 1",
       title: "Select the used books you want",
-      description: "Search from over thousands of used books listed on BookKart.",
+      description:
+        "Search from over thousands of used books listed on BookKart.",
       icon: <Search className="h-8 w-8 text-primary" />,
     },
     {
@@ -87,51 +100,96 @@ export default function Home() {
   ];
 
   const [currentImage, setCurrentImage] = useState(0);
-  useEffect(()=>{
-      const timer = setInterval(()=>{
-        setCurrentImage((prev) => (prev+1)%bannerImages.length)
-      },5000);
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentImage((prev) => (prev + 1) % bannerImages.length);
+    }, 5000);
 
-      return () =>{
-        clearInterval(timer);
-      }
-  },[])
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
 
   return (
     <main className="min-h-screen">
-        <section className="relative h-[600px] overflow-hidden">
-            {
-              bannerImages.map((image, index)=> (
-                <div key={index} className={`absolute inset-0 transition-opacity duration-1000 ${currentImage === index ? 'opacity-100' : 'opacity-0'}`}>
-                    <Image src={image} fill alt="banner" className="object-cover" priority={index == 0}/>
+      <section className="relative h-[600px] overflow-hidden">
+        {bannerImages.map((image, index) => (
+          <div
+            key={index}
+            className={`absolute inset-0 transition-opacity duration-1000 ${
+              currentImage === index ? "opacity-100" : "opacity-0"
+            }`}
+          >
+            <Image
+              src={image}
+              fill
+              alt="banner"
+              className="object-cover"
+              priority={index == 0}
+            />
+          </div>
+        ))}
+
+        <div className="relative container mx-auto px-4 h-full flex flex-col items-center justify-center text-white text-center">
+          <h1 className="text-4xl md:text-6xl font-bold mb-8">
+            Buy and Sell Old Books Online in India.
+          </h1>
+          <div className="flex flex-col sm:flex-row gap-6">
+            <Button
+              size="lg"
+              className="group bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 rounded-xl "
+            >
+              <div className="flex items-center gap-3">
+                <div className="bg-white/10 p-2 rounded-lg group-hover:bg-white/30 transition-colors">
+                  <ShoppingBag className="h-6 w-6" />
                 </div>
-              ))
-            }
-
-            <div className="relative container mx-auto px-4 h-full flex flex-col items-center justify-center text-white text-center">
-              <h1 className="text-4xl md:text-6xl font-bold mb-8">Buy and Sell Old Books Online in India.</h1>
-              <div className="flex flex-col sm:flex-row gap-6">
-                <Button size="lg" className="group bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white px-8 py-6 rounded-xl ">
-                  <div className="flex items-center gap-3">
-                      <div className="bg-white/10 p-2 rounded-lg group-hover:bg-white/30 transition-colors">
-                        <ShoppingBag className="h-6 w-6" />
-                      </div>
-                      <Link href="/books">
-                          <div className="text-left">
-                            <div className="text-sm opacity-90">
-                                Start Shopping
-                            </div>
-                            <div className="font-semibold">
-                                Buy Used Books
-                            </div>
-                          </div>
-                      </Link>
+                <Link href="/books">
+                  <div className="text-left">
+                    <div className="text-sm opacity-90">Start Shopping</div>
+                    <div className="font-semibold">Buy Used Books</div>
                   </div>
-                </Button>
+                </Link>
               </div>
-            </div>
-        </section>
-    </main>
-  )
+            </Button>
+            <Button
+              size="lg"
+              className="group bg-gradient-to-r from-yellow-500 to-yellow-600 hover:from-yellow-600 hover:to-yellow-700 text-black px-8 py-6 rounded-xl "
+            >
+              <div className="flex items-center gap-3">
+                <div className="bg-black/10 p-2 rounded-lg group-hover:bg-black/30 transition-colors">
+                  <ShoppingBag className="h-6 w-6" />
+                </div>
+                <Link href="/book-sell">
+                  <div className="text-left">
+                    <div className="text-sm opacity-90">Start Selling</div>
+                    <div className="font-semibold">Sell Old Books</div>
+                  </div>
+                </Link>
+              </div>
+            </Button>
+          </div>
+        </div>
+      </section>
+      <Books />
+      <Button
+        size="lg"
+        className="flex mt-10 mb-10 mx-auto bg-yellow-500 px-8 py-6 rounded-xl"
+      >
+        <Link href="/books">
+          <div className="text-sm opacity-90">Explore All Books</div>
+        </Link>
+      </Button>
 
+      {/* How to Sell Section */}
+      <section className="py-16 bg-amber-50">
+        <div className="container mx-auto px-4">
+          <div className="text-center font-bold mb-4"></div>
+          <h2 className="text-3xl font-bold mb-4">
+            How to SELL your old books online on BookKart?
+          </h2>
+        </div>
+      </section>
+      {/*  */}
+    </main>
+  );
 }
