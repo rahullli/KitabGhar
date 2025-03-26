@@ -183,13 +183,71 @@ export default function Home() {
       {/* How to Sell Section */}
       <section className="py-16 bg-amber-50">
         <div className="container mx-auto px-4">
-          <div className="text-center font-bold mb-4"></div>
+          <div className="text-center mb-4"></div>
           <h2 className="text-3xl font-bold mb-4">
             How to SELL your old books online on BookKart?
           </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Earning money by selling your old books is just 3 steps away from
+            you😊
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 relative">
+          <div className="hidden md:block absolute top-1/2 left-1/4 right-1/4 h-0.5 border-t-2 border-dashed border-gray-300 -z-10" />
+          {sellSteps.map((step, index) => (
+            <div key={index} className="relative flex flex-col h-full">
+              <div className="bg-white rounded-xl p-8 shadow-lg text-center flex-grow flex flex-col">
+                <div className="absolute top-2 left-14 -translate-x-1/2 bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-sm font-medium z-10">
+                  {step.step}
+                </div>
+                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                  {step.icon}
+                </div>
+                <h3 className="font-semibold mb-2">{step.title}</h3>
+                <p className="text-gray-600 text-sm flex-grow">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
       </section>
-      {/*  */}
+
+      {/* How to Buy Section  */}
+
+      <section className="py-16 bg-gradient-to-b from-gray-50 to-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-4"></div>
+          <h2 className="text-3xl font-bold mb-4">
+            How to BUY second hand books online on BookKart?
+          </h2>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            Saving some good amount of money by buying used books is just 3
+            steps away from you😊
+          </p>
+        </div>
+
+        <div className="grid md:grid-cols-3 gap-8 relative">
+          <div className="hidden md:block absolute top-1/2 left-1/4 right-1/4 h-0.5 border-t-2 border-dashed border-gray-300 -z-10" />
+          {buySteps.map((step, index) => (
+            <div key={index} className="relative flex flex-col h-full">
+              <div className="bg-yellow-400 rounded-xl p-8 shadow-lg text-center flex-grow flex flex-col">
+                <div className="absolute top-2 left-14 -translate-x-1/2 bg-white text-gray-900 px-4 py-1 rounded-full text-sm font-medium z-10">
+                  {step.step}
+                </div>
+                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                  {step.icon}
+                </div>
+                <h3 className="font-semibold mb-2">{step.title}</h3>
+                <p className="text-gray-600 text-sm flex-grow">
+                  {step.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
     </main>
   );
 }
