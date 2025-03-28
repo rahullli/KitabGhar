@@ -17,6 +17,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import Books from "./components/Books";
+import { Card, CardContent } from "@/components/ui/card";
 
 export default function Home() {
   const bannerImages = [
@@ -201,7 +202,7 @@ export default function Home() {
                 <div className="absolute top-2 left-14 -translate-x-1/2 bg-yellow-400 text-gray-900 px-4 py-1 rounded-full text-sm font-medium z-10">
                   {step.step}
                 </div>
-                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                <div className="w-16 mb-2 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
                   {step.icon}
                 </div>
                 <h3 className="font-semibold mb-2">{step.title}</h3>
@@ -236,7 +237,7 @@ export default function Home() {
                 <div className="absolute top-2 left-14 -translate-x-1/2 bg-white text-gray-900 px-4 py-1 rounded-full text-sm font-medium z-10">
                   {step.step}
                 </div>
-                <div className="w-16 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
+                <div className="w-16 mb-2 h-16 mx-auto bg-primary/10 rounded-full flex items-center justify-center">
                   {step.icon}
                 </div>
                 <h3 className="font-semibold mb-2">{step.title}</h3>
@@ -247,6 +248,26 @@ export default function Home() {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Blog Post */}
+      <section className="py-16 bg-[rgb(221,234,254)]">
+          <div className="container mx-auto px-4">
+            <h2>Read from our <span className="text-primary">Blog</span></h2>
+          <div className="grid md:grid-cols-3 gap-8">
+            {
+              blogPosts.map((post,index)=>(
+                  <Card key={index} className="h-full flex flex-col overflow-hidden transition-all duration-300 hover:shadow-lg">
+                    <CardContent className="p-0 flex flex-col h-full">
+                      <div className="relative h-48 overflow-hidden">
+                        <Image src={post.imageSrc} alt={post.title} layout="fill" objectFit="cover" className="transition-transform duration-300 hover:scale-105"/>
+                      </div>
+                    </CardContent>
+                  </Card>
+              ))
+            }
+          </div>
+          </div>
       </section>
     </main>
   );
