@@ -1,4 +1,5 @@
 import React, { useState } from 'react'
+import {formatDistanceToNow} from 'date-fns';
 
 const page = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -36,6 +37,18 @@ const page = () => {
                 )
         }
     })
+
+    const totalPages = Math.ceil(sortedBooks.length / booksPerPage);
+    const paginatedBooks = sortedBooks.slice((currentPage-1)*booksPerPage, currentPage*booksPerPage);
+
+    const handlePageChanges = (page: number) =>{
+        setCurrentPage(page);
+    }
+
+    const formateDate = (date: Date) =>{
+        var newDate = new Date(date);
+        return formatDistanceToNow(newDate, {addSuffix: true});
+    }
 
   return (
     <div>page</div>
