@@ -1,3 +1,5 @@
+"use client"
+
 import React, { useState } from 'react'
 import {formatDistanceToNow} from 'date-fns';
 
@@ -17,24 +19,42 @@ const page = () => {
 
         switch(section){
             case "condition":
-                setSelectedCondition(updateFilter);
+                setSelectedCondition(updateFilter());
                 break;
-            case "condition":
-                setSelectedType(updateFilter);
+            case "classType":
+                setSelectedType(updateFilter());
                 break;
-            case "condition":
-                setSelectedCateogary(updateFilter);
+            case "category":
+                setSelectedCateogary(updateFilter());
                 break;
         }
+        setCurrentPage(1);
     }
 
-    const filterBooks = books.filter
+    const filterBooks = books.filter((book)=>{
+        const conditionMatch = selectedCondition.length === 0 || 
+        selectedCondition.map((cond)=> cond.toLowerCase()).includes(book.condition.toLowerCase());
+        const typeMatch = selectedType.length === 0 || selectedType.map((cond) => cond.toLowerCase()).includes(book.classType.toLowerCase());
+
+        const categoryMatch = selectedCateogary.length === 0 ||
+        selectedCateogary.map((cond)=> cond.toLowerCase()).includes(book.category.toLowerCase());
+
+        return conditionMatch && typeMatch && categoryMatch;
+    })
     const sortBooks = [...filterBooks].sort((a,b)=>{
-        switch(){
+        switch(sortOptions){
             case "newest":
                 return (
-                    new Date(b.createdAt)
+                    new Date(b.createdAt).getTime() - new Date(a.createdAt()).getTime()
                 )
+            case "oldest":
+                return (new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime())
+            case "price-low":
+                return a.finalPrice - b.finalPrice
+            case "price-high":
+                return b.finalPrice - a.finalPrice
+            default :
+                return 0
         }
     })
 
