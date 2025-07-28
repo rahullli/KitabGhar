@@ -2,6 +2,8 @@
 
 import React, { useState } from 'react'
 import {formatDistanceToNow} from 'date-fns';
+import Link from 'next/link';
+import { Accordion } from '@/components/ui/accordion';
 
 const page = () => {
     const [currentPage, setCurrentPage] = useState(1);
@@ -71,7 +73,27 @@ const page = () => {
     }
 
   return (
-    <div>page</div>
+    <div className = "min-h-screen bg-gray-100">
+        <div className="container mx-auto px-4 py-8">
+            <nav className='mb-8 flex items-center gap-2 text-sm text-muted-foreground'>
+                <Link href='/' className='text-primary hover:underline'>
+                    {" "}
+                    Home {" "}
+                </Link>
+                <span>/</span>
+                <span>Books</span>
+            </nav>
+            <h1 className="mb-8 text-3xl font-bold">
+                {" "}
+                Find from your 1000s of used books online{" "}
+            </h1>
+            <div className="grid gap-8 md:grid-cols-[280px_1fr]">
+                <div className="space-y-6">
+                    <Accordion type='multiple' className='bg-white p-6 border rounded-lg'></Accordion>
+                </div>
+            </div>
+        </div>
+    </div>
   )
 }
 
